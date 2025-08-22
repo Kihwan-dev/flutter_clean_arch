@@ -221,8 +221,95 @@ UI → ViewModel → Usecase → Repository → DataSource → JSON 파일
 - **테스트와 유지보수가 쉬움**
 - **코드가 깔끔하고 이해하기 쉬움**
 
-## 🎉 결론
+## 🔧 인터페이스를 만드는 이유
 
-이렇게 각 파일이 명확한 역할을 가지고 서로 협력하면서 깔끔하게 동작하는 구조가 바로 **클린 아키텍처**다! 
+### **1. 테스트하기 쉽게 만들기**
+```dart
+// 테스트용 가짜 객체
+class MockMovieDataSource implements MovieDataSource {
+  @override
+  Future<List<MovieDto>> fetchMovies() async {
+    return [MovieDto(title: "테스트 영화", released: "2024", ...)];
+  }
+}
+```
 
-각 부분을 독립적으로 개발하고 테스트할 수 있어서, 팀 개발이나 장기적인 프로젝트에 매우 유용
+### **2. 다양한 구현체로 쉽게 교체**
+```dart
+// 현재: JSON 파일에서 읽기
+class MovieAssetDataSourceImpl implements MovieDataSource { ... }
+
+// 나중에: API 서버에서 읽기
+class MovieApiDataSourceImpl implements MovieDataSource { ... }
+
+// 또는: 데이터베이스에서 읽기
+class MovieDatabaseDataSourceImpl implements MovieDataSource { ... }
+```
+
+### **3. 의존성 주입으로 쉽게 교체**
+```dart
+// providers.dart에서
+final movieDataSourceProvider = Provider<MovieDataSource>((ref) {
+  // 개발 환경: JSON 파일
+  if (kDebugMode) {
+    return MovieAssetDataSourceImpl(rootBundle);
+  }
+  // 프로덕션 환경: API 서버
+  else {
+    return MovieApiDataSourceImpl(httpClient);
+  }
+});
+```
+
+## 📝 수정 vs 추가의 차이
+
+### **기능 교체 시 (한 곳만 수정):**
+```dart
+// providers.dart만 수정
+final movieDataSourceProvider = Provider<MovieDataSource>((ref) {
+  return MovieApiDataSourceImpl(httpClient); // JSON → API
+});
+```
+
+### **기능 추가 시 (여러 곳 수정):**
+```dart
+// 1. 인터페이스에 메서드 추가
+abstract interface class MovieDataSource {
+  Future<List<MovieDto>> fetchMovies();
+  Future<MovieDto> fetchMovieById(String id); // 새로 추가
+}
+
+// 2. 구현체에 메서드 구현
+class MovieAssetDataSourceImpl implements MovieDataSource {
+  @override
+  Future<MovieDto> fetchMovieById(String id) async { ... } // 새로 구현
+}
+
+// 3. Repository 인터페이스에 메서드 추가
+abstract interface class MovieRepository {
+  Future<Movie> fetchMovieById(String id); // 새로 추가
+}
+
+// 4. Repository 구현체에 메서드 구현
+class MovieRepositoryImpl implements MovieRepository {
+  @override
+  Future<Movie> fetchMovieById(String id) async { ... } // 새로 구현
+}
+
+// 5. Usecase 추가
+class FetchMovieByIdUsecase {
+  Future<Movie> execute(String id) async {
+    return await _movieRepository.fetchMovieById(id);
+  }
+}
+
+// 6. ViewModel에 메서드 추가
+class MovieListViewModel extends Notifier<List<Movie>> {
+  Future<void> fetchMovieById(String id) async { ... } // 새로 추가
+}
+
+// 7. UI에 기능 추가
+class MovieListPage extends StatelessWidget {
+  // 새로 추가된 UI 요소들...
+}
+```
