@@ -1,0 +1,51 @@
+[
+  {
+    "title": "Avatar",
+    "released": "18 Dec 2009",
+    "runtime": "162 min",
+    "director": "James Cameron",
+    "actors": "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang",
+    "poster": "https://ia.media-imdb.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_SX300.jpg",
+    "imdbRating": "7.9"
+  },
+  {
+    "title": "300",
+    "released": "09 Mar 2007",
+    "runtime": "117 min",
+    "director": "Zack Snyder",
+    "actors": "Gerard Butler, Lena Headey, Dominic West, David Wenham",
+    "poster": "https://ia.media-imdb.com/images/M/MV5BMjAzNTkzNjcxNl5BMl5BanBnXkFtZTYwNDA4NjE3._V1_SX300.jpg"
+  },
+  {
+    "title": "The Avengers",
+    "released": "04 May 2012",
+    "runtime": "143 min",
+    "director": "Joss Whedon",
+    "actors": "Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
+    "poster": "https://ia.media-imdb.com/images/M/MV5BMTk2NTI1MTU4N15BMl5BanBnXkFtZTcwODg0OTY0Nw@@._V1_SX300.jpg"
+  },
+  {
+    "title": "The Wolf of Wall Street",
+    "released": "25 Dec 2013",
+    "runtime": "180 min",
+    "director": "Martin Scorsese",
+    "actors": "Leonardo DiCaprio, Jonah Hill, Margot Robbie, Matthew McConaughey",
+    "poster": "https://ia.media-imdb.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_SX300.jpg"
+  },
+  {
+    "title": "Interstellar",
+    "released": "07 Nov 2014",
+    "runtime": "169 min",
+    "director": "Christopher Nolan",
+    "actors": "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow",
+    "poster": "https://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg"
+  },
+  {
+    "title": "Game of Thrones",
+    "released": "17 Apr 2011",
+    "runtime": "56 min",
+    "director": "N/A",
+    "actors": "Peter Dinklage, Lena Headey, Emilia Clarke, Kit Harington",
+    "poster": "https://ia.media-imdb.com/images/M/MV5BMjM5OTQ1MTY5Nl5BMl5BanBnXkFtZTgwMjM3NzMxODE@._V1_SX300.jpg"
+  }
+]
