@@ -81,47 +81,7 @@ class MovieDto {
 - Dart 객체를 JSON으로 변환 (`toJson`)
 - 외부 API나 파일의 데이터 구조와 일치
 
-### **📁 Domain Layer (도메인 계층)**
-
-#### **4. `movie.dart`**
-```dart
-class Movie {
-  final String title;
-  final String released;
-  // ... 기타 필드들
-}
-```
-**역할**: 앱의 핵심 데이터 모델인 **엔티티**
-- 외부 데이터와 독립적인 순수한 Dart 클래스
-- 비즈니스 로직에서 사용하는 데이터 구조
-- JSON, API 등 외부 형태와 무관하게 앱 내부에서 사용
-
-#### **5. `movie_repository.dart`**
-```dart
-abstract interface class MovieRepository {
-  Future<List<Movie>> fetchMovies();
-}
-```
-**역할**: 데이터 접근 방법을 정의하는 **중간 계약서**
-- `MovieDataSource`와 `Movie` 엔티티 사이의 중간자
-- "영화 데이터를 가져와서 Movie 엔티티로 변환해야 한다"는 규칙 정의
-
-#### **6. `fetch_movies_usecase.dart`**
-```dart
-class FetchMoviesUsecase {
-  Future<List<Movie>> execute() async {
-    return await _movieRepository.fetchMovies();
-  }
-}
-```
-**역할**: 특정 비즈니스 기능을 수행하는 **작업 수행자**
-- "영화 목록을 가져오기"라는 구체적인 작업을 담당
-- 복잡한 비즈니스 로직이 있다면 여기에 작성
-- 현재는 단순하지만 나중에 필터링, 정렬 등의 로직 추가 가능
-
-### **🖥️ Presentation Layer (표현 계층)**
-
-#### **7. `movie_repository_impl.dart`**
+#### **4. `movie_repository_impl.dart`**
 ```dart
 class MovieRepositoryImpl implements MovieRepository {
   @override
@@ -135,6 +95,46 @@ class MovieRepositoryImpl implements MovieRepository {
 - `MovieDataSource`에서 `MovieDto`를 가져옴
 - `MovieDto`를 `Movie` 엔티티로 변환
 - 데이터 변환 로직을 담당
+
+### **📁 Domain Layer (도메인 계층)**
+
+#### **5. `movie.dart`**
+```dart
+class Movie {
+  final String title;
+  final String released;
+  // ... 기타 필드들
+}
+```
+**역할**: 앱의 핵심 데이터 모델인 **엔티티**
+- 외부 데이터와 독립적인 순수한 Dart 클래스
+- 비즈니스 로직에서 사용하는 데이터 구조
+- JSON, API 등 외부 형태와 무관하게 앱 내부에서 사용
+
+#### **6. `movie_repository.dart`**
+```dart
+abstract interface class MovieRepository {
+  Future<List<Movie>> fetchMovies();
+}
+```
+**역할**: 데이터 접근 방법을 정의하는 **중간 계약서**
+- `MovieDataSource`와 `Movie` 엔티티 사이의 중간자
+- "영화 데이터를 가져와서 Movie 엔티티로 변환해야 한다"는 규칙 정의
+
+#### **7. `fetch_movies_usecase.dart`**
+```dart
+class FetchMoviesUsecase {
+  Future<List<Movie>> execute() async {
+    return await _movieRepository.fetchMovies();
+  }
+}
+```
+**역할**: 특정 비즈니스 기능을 수행하는 **작업 수행자**
+- "영화 목록을 가져오기"라는 구체적인 작업을 담당
+- 복잡한 비즈니스 로직이 있다면 여기에 작성
+- 현재는 단순하지만 나중에 필터링, 정렬 등의 로직 추가 가능
+
+### **🖥️ Presentation Layer (표현 계층)**
 
 #### **8. `providers.dart`**
 ```dart
